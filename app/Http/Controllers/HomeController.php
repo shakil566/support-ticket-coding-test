@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Issue;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,10 +12,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +20,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $openTicketsCount = Issue::where('status', 'Open');
+
+        if (auth()->user()->user_group == 2) {
+            $openTicketsCount = $openTicketsCount->where('created_by', auth()->user()->id);
+        }
+
+        $openTicketsCount = $openTicketsCount->count();
+
+        $closedTicketsCount = Issue::where('status', 'Closed');
+
+        if (auth()->user()->user_group == 2) {
+            $closedTicketsCount = $closedTicketsCount->where('created_by', auth()->user()->id);
+        }
+
+        $closedTicketsCount = $closedTicketsCount->count();
+
+
+        return view('home', compact('openTicketsCount', 'closedTicketsCount'));
     }
 }
