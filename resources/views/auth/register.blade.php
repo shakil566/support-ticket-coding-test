@@ -61,6 +61,19 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="user_group" class="col-md-4 col-form-label text-md-end"></label>
+
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="user_group" id="user_group" value="1" {{ old('user_group') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="user_group">
+                                        {{ __('Admin') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

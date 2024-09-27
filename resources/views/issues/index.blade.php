@@ -35,7 +35,7 @@
                                     <tr>
                                         <th>{{ $index + 1 }}</th>
                                         <td>{{ $data->ticket_number }}</td>
-                                        <td>{{ $data->created_at->format('Y-m-d H:i') }}</td>
+                                        <td>{{ (!empty($data->created_at)) ? $data->created_at->format('Y-m-d H:i') : '' }}</td>
                                         <td>{{ $data->details }}</td>
                                         <td>{{ $data->status }}</td>
                                         @if (auth()->user()->user_group == 1)

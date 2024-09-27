@@ -37,6 +37,14 @@ class HomeController extends Controller
         $closedTicketsCount = $closedTicketsCount->count();
 
 
-        return view('home', compact('openTicketsCount', 'closedTicketsCount'));
+        $allTicketsCount = Issue::orderBy('created_at', 'desc');
+        if (auth()->user()->user_group == 2) {
+            $allTicketsCount = $allTicketsCount->where('created_by', auth()->user()->id);
+        }
+
+        $allTicketsCount = $allTicketsCount->count();
+
+
+        return view('home', compact('openTicketsCount', 'closedTicketsCount', 'allTicketsCount'));
     }
 }

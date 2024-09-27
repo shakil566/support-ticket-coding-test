@@ -91,6 +91,7 @@ class IssuesController extends Controller
 
         $issue->remarks = $request->remarks;
         $issue->status = $request->status;
+        $issue->updated_by = auth()->user()->id;
         $issue->save();
 
         //dispatch the event for issue updated
